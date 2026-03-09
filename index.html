@@ -207,7 +207,7 @@
               alt="Financial ERP"
             />
             <div
-              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/80 to-transparent w-full"
+              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/60 to-transparent w-full"
             >
               <h3 class="text-2xl font-bold">Financial ERP System</h3>
               <p class="text-cyan-400">
@@ -222,11 +222,41 @@
               alt="Warehouse"
             />
             <div
-              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/80 to-transparent w-full"
+              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/60 to-transparent w-full"
             >
               <h3 class="text-2xl font-bold">Warehouse Management</h3>
               <p class="text-purple-400">
                 Inventory Control & Stock Movement Tracking
+              </p>
+            </div>
+          </div>
+          <div class="swiper-slide system-slide glass-card">
+            <img
+              src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1200"
+              class="w-full h-full object-cover opacity-70"
+              alt="Production"
+            />
+            <div
+              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/60 to-transparent w-full"
+            >
+              <h3 class="text-2xl font-bold">Production Tracking</h3>
+              <p class="text-yellow-400">
+                Manufacturing Workflow & Output Monitoring
+              </p>
+            </div>
+          </div>
+          <div class="swiper-slide system-slide glass-card">
+            <img
+              src="images/deliverysystem.png"
+              class="w-full h-full object-cover opacity-70"
+              alt="Invoices"
+            />
+            <div
+              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/60 to-transparent w-full"
+            >
+              <h3 class="text-2xl font-bold">Invoices & Delivery</h3>
+              <p class="text-green-400">
+                Billing Automation & Logistics Management
               </p>
             </div>
           </div>
@@ -274,6 +304,55 @@
               >
             </div>
           </div>
+          <div class="swiper-slide px-3">
+            <div class="installer-card glass-card p-8 text-center h-full">
+              <div
+                class="w-20 h-20 bg-blue-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-blue-500/30"
+              >
+                <i class="fas fa-camera-retro text-3xl text-blue-500"></i>
+              </div>
+              <h4 class="text-xl font-bold mb-1">AI & Photoshop</h4>
+              <p class="text-sm text-gray-500 mb-6">
+                Graphics & Generative Fill
+              </p>
+              <span
+                class="text-[10px] bg-blue-500/20 text-blue-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
+                >Full Version</span
+              >
+            </div>
+          </div>
+          <div class="swiper-slide px-3">
+            <div class="installer-card glass-card p-8 text-center h-full">
+              <div
+                class="w-20 h-20 bg-orange-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-orange-500/30"
+              >
+                <i class="fas fa-file-word text-3xl text-orange-500"></i>
+              </div>
+              <h4 class="text-xl font-bold mb-1">Microsoft Office</h4>
+              <p class="text-sm text-gray-500 mb-6">
+                Business Productivity Hub
+              </p>
+              <span
+                class="text-[10px] bg-orange-500/20 text-orange-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
+                >Activated (2025)</span
+              >
+            </div>
+          </div>
+          <div class="swiper-slide px-3">
+            <div class="installer-card glass-card p-8 text-center h-full">
+              <div
+                class="w-20 h-20 bg-yellow-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-yellow-500/30"
+              >
+                <i class="fas fa-cube text-3xl text-yellow-500"></i>
+              </div>
+              <h4 class="text-xl font-bold mb-1">Inventor</h4>
+              <p class="text-sm text-gray-500 mb-6">Mechanical Engineering</p>
+              <span
+                class="text-[10px] bg-yellow-500/20 text-yellow-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
+                >Professional (2025)</span
+              >
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -287,7 +366,6 @@
         onclick="toggleModal()"
         class="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300"
       ></div>
-
       <div
         id="modalContent"
         class="glass-card relative w-full max-w-lg p-8 border border-white/20 shadow-2xl"
@@ -298,12 +376,10 @@
         >
           <i class="fas fa-times text-xl"></i>
         </button>
-
         <h3 class="text-3xl font-black mb-2">Request a Quote</h3>
         <p class="text-gray-400 text-sm mb-8">
-          Tell us about your project. We'll reply to your Gmail shortly.
+          Tell us about your project. We'll reply shortly.
         </p>
-
         <form
           id="quoteForm"
           class="space-y-4"
@@ -321,7 +397,6 @@
               required
             />
           </div>
-
           <div>
             <label
               class="block text-[10px] uppercase tracking-widest font-bold text-cyan-400 mb-2"
@@ -335,7 +410,6 @@
               pattern=".+@gmail\.com"
             />
           </div>
-
           <div>
             <label
               class="block text-[10px] uppercase tracking-widest font-bold text-cyan-400 mb-2"
@@ -355,7 +429,6 @@
               ></i>
             </div>
           </div>
-
           <div>
             <label
               class="block text-[10px] uppercase tracking-widest font-bold text-cyan-400 mb-2"
@@ -368,7 +441,6 @@
               required
             ></textarea>
           </div>
-
           <button
             type="submit"
             class="w-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-black py-4 rounded-xl uppercase tracking-widest text-xs hover:opacity-90 transition mt-4 active:scale-95"
@@ -415,26 +487,21 @@
         },
       });
 
-      // MODAL LOGIC WITH ANIMATION
       const modal = document.getElementById("quoteModal");
       const modalContent = document.getElementById("modalContent");
       const modalOverlay = document.getElementById("modalOverlay");
 
       function toggleModal() {
         if (modal.classList.contains("hidden")) {
-          // Open
           modal.classList.remove("hidden");
           modalContent.classList.remove("animate-modal-out");
           modalContent.classList.add("animate-modal-in");
           modalOverlay.style.opacity = "1";
           document.body.style.overflow = "hidden";
         } else {
-          // Close Animation
           modalContent.classList.remove("animate-modal-in");
           modalContent.classList.add("animate-modal-out");
           modalOverlay.style.opacity = "0";
-
-          // Wait for animation to finish (300ms)
           setTimeout(() => {
             modal.classList.add("hidden");
             document.body.style.overflow = "auto";
@@ -447,7 +514,6 @@
         const btn = e.target.querySelector("button");
         btn.innerText = "SENDING...";
         btn.disabled = true;
-
         setTimeout(() => {
           alert("Success! Your request has been sent.");
           btn.innerText = "Send Quotation Request";
