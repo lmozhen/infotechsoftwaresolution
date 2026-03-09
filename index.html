@@ -1,166 +1,509 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Information Tech & Software Services</title>
+    <title>INFO TECH | Systems & Software Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap");
+
       body {
-        background: radial-gradient(circle at top right, #1a1a2e, #0f0f1a);
+        background: #050508;
         color: white;
-        font-family: "Inter", sans-serif;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        overflow-x: hidden;
       }
+
+      .glow-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at 50% -20%,
+          #1e2a4a 0%,
+          #050508 60%
+        );
+        z-index: -1;
+      }
+
       .glass-card {
         background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: transform 0.3s ease, border 0.3s ease;
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
       }
-      .glass-card:hover {
-        transform: translateY(-5px);
-        border: 1px solid #00f2ff;
+
+      /* System Library Styling */
+      .system-slide {
+        height: 480px;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 242, 255, 0.2);
+        position: relative;
       }
-      .neon-text-cyan {
-        text-shadow: 0 0 10px #00f2ff;
-        color: #00f2ff;
+
+      .system-slide img {
+        transition: transform 0.5s ease;
       }
-      .neon-border-green {
-        border: 2px solid #39ff14;
-        box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+      .system-slide:hover img {
+        transform: scale(1.05);
       }
-      .gradient-bg {
-        background: linear-gradient(
-          135deg,
-          #00f2ff 0%,
-          #7000ff 50%,
-          #39ff14 100%
-        );
-        -webkit--backgroundclip: text;
-        -webkit-text-fill-color: transparent;
+
+      /* Installer Library FIX */
+      .installerSwiper {
+        padding: 40px 20px !important;
+        margin: -40px -20px !important;
+      }
+
+      .installer-card {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+      }
+
+      .installer-card:hover {
+        transform: translateY(-15px) scale(1.08);
+        z-index: 50;
+        border-color: #7000ff;
+        background: rgba(112, 0, 255, 0.08);
+        box-shadow: 0 25px 50px -12px rgba(112, 0, 255, 0.5);
+      }
+
+      .swiper-pagination-bullet {
+        background: #00f2ff !important;
+      }
+
+      /* Modal Animation */
+      @keyframes modalIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95) translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+      .animate-modal {
+        animation: modalIn 0.3s ease-out forwards;
       }
     </style>
   </head>
-  <body class="min-h-screen">
-    <nav class="flex justify-between items-center p-6 max-w-7xl mx-auto">
-      <div class="text-2xl font-bold tracking-tighter">
-        <span class="text-white">INFO</span
-        ><span class="text-cyan-400">TECH</span>
-      </div>
+  <body>
+    <div class="glow-bg"></div>
+
+    <nav class="flex justify-between items-center p-8 max-w-7xl mx-auto h-24">
+      <a href="#" class="flex items-center gap-4 group">
+        <div class="relative">
+          <div
+            class="absolute -inset-1 bg-cyan-400/20 rounded-xl blur opacity-25 group-hover:opacity-60 transition duration-300"
+          ></div>
+          <img
+            src="images/logo.jpg"
+            alt="INFO TECH LOGO"
+            class="relative h-12 w-12 object-cover rounded-xl border border-white/10"
+          />
+        </div>
+
+        <div class="flex flex-col justify-center">
+          <div class="text-2xl font-black italic tracking-tighter leading-none">
+            INFO<span class="text-cyan-400">TECH</span>
+          </div>
+          <span
+            class="text-[8px] uppercase tracking-[0.3em] text-gray-500 font-bold leading-none mt-1"
+          >
+            Software Services
+          </span>
+        </div>
+      </a>
+
       <div
-        class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-medium"
+        class="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest text-gray-400"
       >
-        <a href="#" class="hover:text-cyan-400 transition">Services</a>
-        <a href="#" class="hover:text-purple-400 transition">Software</a>
-        <a href="#" class="hover:text-green-400 transition">Custom Dev</a>
+        <a href="#systems" class="hover:text-cyan-400 transition">Portfolio</a>
+        <a href="#installers" class="hover:text-purple-400 transition"
+          >Installers</a
+        >
+        <a href="mailto:yourgmail@gmail.com" class="hover:text-white transition"
+          >Contact</a
+        >
       </div>
+
       <button
-        class="bg-cyan-500 hover:bg-cyan-400 text-black px-6 py-2 rounded-full font-bold transition"
+        onclick="toggleModal()"
+        class="bg-white text-black px-6 py-2 rounded-full font-bold text-sm hover:bg-cyan-400 transition shadow-lg shadow-white/5 active:scale-95"
       >
         GET A QUOTE
       </button>
     </nav>
 
-    <header class="text-center py-20 px-4">
-      <h1 class="text-5xl md:text-7xl font-extrabold mb-4">
-        Your Digital <span>Solutions</span> Partner
+    <header class="text-center py-16 px-4">
+      <span
+        class="px-4 py-1 rounded-full border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-4 inline-block uppercase tracking-widest"
+      >
+        Calamba & Cabuyao Services
+      </span>
+      <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter mb-6">
+        Build.
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500"
+          >Deploy.</span
+        >
+        Scale.
       </h1>
-      <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-10">
-        Providing expert IT support, software installations, and custom
-        development in the Calamba & Cabuyao Area.
-      </p>
-      <div class="flex justify-center gap-4">
-        <div class="flex items-center gap-2 text-sm text-gray-300">
-          <i class="fas fa-location-dot text-cyan-400"></i> Calamba / Cabuyao
-        </div>
-      </div>
     </header>
 
-    <section class="max-w-7xl mx-auto px-6 pb-20">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="glass-card p-8 rounded-3xl md:col-span-2">
-          <div class="flex items-center gap-4 mb-6">
-            <div class="p-3 bg-cyan-500/20 rounded-xl text-cyan-400">
-              <i class="fas fa-tools fa-2x"></i>
-            </div>
-            <h2 class="text-2xl font-bold">Core Services</h2>
-          </div>
-          <div class="grid grid-cols-2 gap-4">
-            <ul class="space-y-3 text-gray-300">
-              <li>
-                <i class="fas fa-check text-cyan-400 mr-2"></i> Windows Install
-              </li>
-              <li>
-                <i class="fas fa-check text-cyan-400 mr-2"></i> Microsoft Office
-              </li>
-            </ul>
-            <ul class="space-y-3 text-gray-300">
-              <li>
-                <i class="fas fa-check text-cyan-400 mr-2"></i> Laptop/PC
-                Upgrades
-              </li>
-              <li>
-                <i class="fas fa-check text-cyan-400 mr-2"></i> Printer Services
-              </li>
-            </ul>
-          </div>
+    <section id="systems" class="max-w-7xl mx-auto px-6 mb-32">
+      <div class="flex justify-between items-end mb-8">
+        <div>
+          <h2 class="text-4xl font-black text-white">Systems Library</h2>
+          <p class="text-gray-500">
+            Bespoke ERP & Business Management Software
+          </p>
         </div>
-
-        <div class="glass-card p-8 rounded-3xl border-purple-500/30">
-          <div class="flex items-center gap-4 mb-6">
-            <div class="p-3 bg-purple-500/20 rounded-xl text-purple-400">
-              <i class="fas fa-layer-group fa-2x"></i>
-            </div>
-            <h2 class="text-2xl font-bold">Software Available</h2>
-          </div>
-          <ul class="space-y-4 font-medium">
-            <li class="flex justify-between border-b border-white/5 pb-2">
-              <span>AutoCAD</span>
-              <i class="fas fa-plus text-xs opacity-30"></i>
-            </li>
-            <li class="flex justify-between border-b border-white/5 pb-2">
-              <span>AI Photoshop</span>
-              <i class="fas fa-plus text-xs opacity-30"></i>
-            </li>
-            <li class="flex justify-between">
-              <span>Inventor</span>
-              <i class="fas fa-plus text-xs opacity-30"></i>
-            </li>
-          </ul>
-        </div>
-
-        <div
-          class="glass-card p-8 rounded-3xl md:col-span-3 neon-border-green bg-green-500/5"
-        >
+        <div class="flex gap-2">
           <div
-            class="flex flex-col md:flex-row justify-between items-center gap-6"
+            class="swiper-prev-btn cursor-pointer p-3 rounded-full bg-white/5 hover:bg-white/10 text-cyan-400 transition"
           >
-            <div>
-              <h2 class="text-3xl font-bold mb-2">Custom Development</h2>
-              <p class="text-green-400">
-                Websites & Application Software for Business, Personal, or
-                Thesis.
+            <i class="fas fa-arrow-left"></i>
+          </div>
+          <div
+            class="swiper-next-btn cursor-pointer p-3 rounded-full bg-white/5 hover:bg-white/10 text-cyan-400 transition"
+          >
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper systemSwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide system-slide glass-card">
+            <img
+              src="images/financialsystem.png"
+              class="w-full h-full object-cover opacity-70"
+              alt="Financial ERP"
+            />
+            <div
+              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/80 to-transparent w-full"
+            >
+              <h3 class="text-2xl font-bold">Financial ERP System</h3>
+              <p class="text-cyan-400">
+                Custom Accounting, Cashflow & Real-time Analytics
               </p>
             </div>
-            <a
-              href="#"
-              class="bg-green-500 text-black px-8 py-4 rounded-2xl font-black hover:scale-105 transition"
+          </div>
+          <div class="swiper-slide system-slide glass-card">
+            <img
+              src="images/warehousesystem.png"
+              class="w-full h-full object-cover opacity-70"
+              alt="Warehouse"
+            />
+            <div
+              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/80 to-transparent w-full"
             >
-              START YOUR PROJECT
-            </a>
+              <h3 class="text-2xl font-bold">Warehouse Management</h3>
+              <p class="text-purple-400">
+                Inventory Control & Stock Movement Tracking
+              </p>
+            </div>
+          </div>
+          <div class="swiper-slide system-slide glass-card">
+            <img
+              src="images/deliverysystem.png"
+              class="w-full h-full object-cover opacity-70"
+              alt="Logistics"
+            />
+            <div
+              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/80 to-transparent w-full"
+            >
+              <h3 class="text-2xl font-bold">Invoices & Delivery</h3>
+              <p class="text-green-400">
+                Billing Automation & Logistics Management
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination mt-12"></div>
+      </div>
+    </section>
+
+    <section id="installers" class="max-w-7xl mx-auto px-6 pb-32">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-black mb-2">Installer Library</h2>
+        <p class="text-gray-500">
+          Professional Grade Software Ready for Installation
+        </p>
+      </div>
+
+      <div class="swiper installerSwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide px-3">
+            <div class="installer-card glass-card p-8 text-center h-full">
+              <div
+                class="w-20 h-20 bg-blue-600/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-blue-500/30"
+              >
+                <i class="fab fa-windows text-3xl text-blue-400"></i>
+              </div>
+              <h4 class="text-xl font-bold mb-1">Windows 10</h4>
+              <p class="text-sm text-gray-500 mb-6">OS Format & Optimization</p>
+              <span
+                class="text-[10px] bg-blue-500/20 text-blue-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
+                >Activated</span
+              >
+            </div>
+          </div>
+          <div class="swiper-slide px-3">
+            <div class="installer-card glass-card p-8 text-center h-full">
+              <div
+                class="w-20 h-20 bg-red-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-red-500/30"
+              >
+                <i class="fas fa-pencil-ruler text-3xl text-red-500"></i>
+              </div>
+              <h4 class="text-xl font-bold mb-1">AutoCAD</h4>
+              <p class="text-sm text-gray-500 mb-6">Architecture & 3D Design</p>
+              <span
+                class="text-[10px] bg-red-500/20 text-red-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
+                >2024 Version</span
+              >
+            </div>
+          </div>
+          <div class="swiper-slide px-3">
+            <div class="installer-card glass-card p-8 text-center h-full">
+              <div
+                class="w-20 h-20 bg-blue-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-blue-500/30"
+              >
+                <i class="fas fa-camera-retro text-3xl text-blue-500"></i>
+              </div>
+              <h4 class="text-xl font-bold mb-1">AI & Photoshop</h4>
+              <p class="text-sm text-gray-500 mb-6">
+                Graphics & Generative Fill
+              </p>
+              <span
+                class="text-[10px] bg-blue-500/20 text-blue-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
+                >Full Version</span
+              >
+            </div>
+          </div>
+          <div class="swiper-slide px-3">
+            <div class="installer-card glass-card p-8 text-center h-full">
+              <div
+                class="w-20 h-20 bg-orange-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-orange-500/30"
+              >
+                <i class="fas fa-file-word text-3xl text-orange-500"></i>
+              </div>
+              <h4 class="text-xl font-bold mb-1">Microsoft Office</h4>
+              <p class="text-sm text-gray-500 mb-6">
+                Business Productivity Hub
+              </p>
+              <span
+                class="text-[10px] bg-orange-500/20 text-orange-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
+                >Activated (2025)</span
+              >
+            </div>
+          </div>
+          <div class="swiper-slide px-3">
+            <div class="installer-card glass-card p-8 text-center h-full">
+              <div
+                class="w-20 h-20 bg-yellow-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-yellow-500/30"
+              >
+                <i class="fas fa-cube text-3xl text-yellow-500"></i>
+              </div>
+              <h4 class="text-xl font-bold mb-1">Inventor</h4>
+              <p class="text-sm text-gray-500 mb-6">Mechanical Engineering</p>
+              <span
+                class="text-[10px] bg-yellow-500/20 text-yellow-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
+                >Professional (2025)</span
+              >
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <footer class="text-center p-10 border-t border-white/5">
-      <p class="text-gray-500">
-        © 2026 Information Tech & Software Services. PM Our Page for More Info.
+    <div
+      id="quoteModal"
+      class="fixed inset-0 z-[100] hidden flex items-center justify-center px-4"
+    >
+      <div
+        onclick="toggleModal()"
+        class="absolute inset-0 bg-black/80 backdrop-blur-md"
+      ></div>
+
+      <div
+        class="glass-card relative w-full max-w-lg p-8 border border-white/20 shadow-2xl animate-modal"
+      >
+        <button
+          onclick="toggleModal()"
+          class="absolute top-6 right-6 text-gray-400 hover:text-white transition"
+        >
+          <i class="fas fa-times text-xl"></i>
+        </button>
+
+        <h3 class="text-3xl font-black mb-2">Request a Quote</h3>
+        <p class="text-gray-400 text-sm mb-8">
+          Tell us about your project. We'll reply to your Gmail shortly.
+        </p>
+
+        <form
+          id="quoteForm"
+          class="space-y-4"
+          onsubmit="handleQuoteSubmit(event)"
+        >
+          <div>
+            <label
+              class="block text-[10px] uppercase tracking-widest font-bold text-cyan-400 mb-2"
+              >Full Name</label
+            >
+            <input
+              type="text"
+              placeholder="Your Name"
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm"
+              required
+            />
+          </div>
+
+          <div>
+            <label
+              class="block text-[10px] uppercase tracking-widest font-bold text-cyan-400 mb-2"
+              >Gmail Address</label
+            >
+            <input
+              type="email"
+              placeholder="example@gmail.com"
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm"
+              required
+              pattern=".+@gmail\.com"
+              title="Please use a valid Gmail address (ending in @gmail.com)"
+            />
+          </div>
+
+          <div>
+            <label
+              class="block text-[10px] uppercase tracking-widest font-bold text-cyan-400 mb-2"
+              >Service Category</label
+            >
+            <select
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm appearance-none"
+            >
+              <option class="bg-[#050508]">Custom System Development</option>
+              <option class="bg-[#050508]">Software Installation</option>
+              <option class="bg-[#050508]">OS Formatting/Cleanup</option>
+              <option class="bg-[#050508]">IT Consultation</option>
+            </select>
+          </div>
+
+          <div>
+            <label
+              class="block text-[10px] uppercase tracking-widest font-bold text-cyan-400 mb-2"
+              >Message</label
+            >
+            <textarea
+              rows="4"
+              placeholder="Describe your requirements..."
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm resize-none"
+              required
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-black py-4 rounded-xl uppercase tracking-widest text-xs hover:opacity-90 transition mt-4"
+          >
+            Send Quotation Request
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <footer class="text-center py-12 border-t border-white/5">
+      <div class="flex flex-col items-center opacity-50 mb-4">
+        <div class="relative">
+          <div
+            class="absolute -inset-1 bg-cyan-400/20 rounded-xl blur opacity-25 group-hover:opacity-60 transition duration-300"
+          ></div>
+          <img
+            src="images/logo.jpg"
+            alt="INFO TECH LOGO"
+            class="relative h-12 w-12 object-cover rounded-xl border border-white/10"
+          />
+        </div>
+
+        <p class="text-[10px] tracking-widest font-bold">
+          CALAMBA | CABUYAO | LAGUNA
+        </p>
+      </div>
+      <p class="text-xs opacity-30">
+        © 2026 INFO TECH SOFTWARE SERVICES. ALL RIGHTS RESERVED.
       </p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      // Initialize Swipers
+      const systemSwiper = new Swiper(".systemSwiper", {
+        loop: true,
+        effect: "coverflow",
+        centeredSlides: true,
+        slidesPerView: "auto",
+        coverflowEffect: { rotate: 0, stretch: 0, depth: 100, modifier: 2.5 },
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: { nextEl: ".swiper-next-btn", prevEl: ".swiper-prev-btn" },
+      });
+
+      const installerSwiper = new Swiper(".installerSwiper", {
+        slidesPerView: 1.5,
+        spaceBetween: 10,
+        loop: true,
+        breakpoints: {
+          640: { slidesPerView: 2, spaceBetween: 20 },
+          1024: { slidesPerView: 4, spaceBetween: 20 },
+        },
+      });
+
+      // Modal Logic
+      function toggleModal() {
+        const modal = document.getElementById("quoteModal");
+        if (modal.classList.contains("hidden")) {
+          modal.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        } else {
+          modal.classList.add("hidden");
+          document.body.style.overflow = "auto";
+        }
+      }
+
+      // Form Submission Handler
+      function handleQuoteSubmit(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector("button");
+        const originalText = btn.innerText;
+
+        // Visual Feedback
+        btn.innerText = "SENDING...";
+        btn.disabled = true;
+
+        setTimeout(() => {
+          alert(
+            "Success! Your request has been sent. We will reply to your Gmail within 24 hours.",
+          );
+          btn.innerText = originalText;
+          btn.disabled = false;
+          e.target.reset();
+          toggleModal();
+        }, 1500);
+      }
+    </script>
   </body>
 </html>
