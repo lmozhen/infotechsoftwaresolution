@@ -60,7 +60,7 @@
         transform: scale(1.05);
       }
 
-      /* Installer Library FIX */
+      /* Installer Library */
       .installerSwiper {
         padding: 40px 20px !important;
         margin: -40px -20px !important;
@@ -85,19 +85,33 @@
         background: #00f2ff !important;
       }
 
-      /* Modal Animation */
+      /* Modal Animations */
       @keyframes modalIn {
         from {
           opacity: 0;
-          transform: scale(0.95) translateY(10px);
+          transform: scale(0.95) translateY(20px);
         }
         to {
           opacity: 1;
           transform: scale(1) translateY(0);
         }
       }
-      .animate-modal {
-        animation: modalIn 0.3s ease-out forwards;
+      @keyframes modalOut {
+        from {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: scale(0.95) translateY(20px);
+        }
+      }
+
+      .animate-modal-in {
+        animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+      .animate-modal-out {
+        animation: modalOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
       }
     </style>
   </head>
@@ -116,16 +130,14 @@
             class="relative h-12 w-12 object-cover rounded-xl border border-white/10"
           />
         </div>
-
         <div class="flex flex-col justify-center">
           <div class="text-2xl font-black italic tracking-tighter leading-none">
             INFO<span class="text-cyan-400">TECH</span>
           </div>
           <span
             class="text-[8px] uppercase tracking-[0.3em] text-gray-500 font-bold leading-none mt-1"
+            >Software Services</span
           >
-            Software Services
-          </span>
         </div>
       </a>
 
@@ -152,9 +164,8 @@
     <header class="text-center py-16 px-4">
       <span
         class="px-4 py-1 rounded-full border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-4 inline-block uppercase tracking-widest"
+        >Calamba & Cabuyao Services</span
       >
-        Calamba & Cabuyao Services
-      </span>
       <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter mb-6">
         Build.
         <span
@@ -219,21 +230,6 @@
               </p>
             </div>
           </div>
-          <div class="swiper-slide system-slide glass-card">
-            <img
-              src="images/deliverysystem.png"
-              class="w-full h-full object-cover opacity-70"
-              alt="Logistics"
-            />
-            <div
-              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/80 to-transparent w-full"
-            >
-              <h3 class="text-2xl font-bold">Invoices & Delivery</h3>
-              <p class="text-green-400">
-                Billing Automation & Logistics Management
-              </p>
-            </div>
-          </div>
         </div>
         <div class="swiper-pagination mt-12"></div>
       </div>
@@ -246,7 +242,6 @@
           Professional Grade Software Ready for Installation
         </p>
       </div>
-
       <div class="swiper installerSwiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide px-3">
@@ -279,55 +274,6 @@
               >
             </div>
           </div>
-          <div class="swiper-slide px-3">
-            <div class="installer-card glass-card p-8 text-center h-full">
-              <div
-                class="w-20 h-20 bg-blue-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-blue-500/30"
-              >
-                <i class="fas fa-camera-retro text-3xl text-blue-500"></i>
-              </div>
-              <h4 class="text-xl font-bold mb-1">AI & Photoshop</h4>
-              <p class="text-sm text-gray-500 mb-6">
-                Graphics & Generative Fill
-              </p>
-              <span
-                class="text-[10px] bg-blue-500/20 text-blue-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
-                >Full Version</span
-              >
-            </div>
-          </div>
-          <div class="swiper-slide px-3">
-            <div class="installer-card glass-card p-8 text-center h-full">
-              <div
-                class="w-20 h-20 bg-orange-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-orange-500/30"
-              >
-                <i class="fas fa-file-word text-3xl text-orange-500"></i>
-              </div>
-              <h4 class="text-xl font-bold mb-1">Microsoft Office</h4>
-              <p class="text-sm text-gray-500 mb-6">
-                Business Productivity Hub
-              </p>
-              <span
-                class="text-[10px] bg-orange-500/20 text-orange-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
-                >Activated (2025)</span
-              >
-            </div>
-          </div>
-          <div class="swiper-slide px-3">
-            <div class="installer-card glass-card p-8 text-center h-full">
-              <div
-                class="w-20 h-20 bg-yellow-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-yellow-500/30"
-              >
-                <i class="fas fa-cube text-3xl text-yellow-500"></i>
-              </div>
-              <h4 class="text-xl font-bold mb-1">Inventor</h4>
-              <p class="text-sm text-gray-500 mb-6">Mechanical Engineering</p>
-              <span
-                class="text-[10px] bg-yellow-500/20 text-yellow-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
-                >Professional (2025)</span
-              >
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -337,12 +283,14 @@
       class="fixed inset-0 z-[100] hidden flex items-center justify-center px-4"
     >
       <div
+        id="modalOverlay"
         onclick="toggleModal()"
-        class="absolute inset-0 bg-black/80 backdrop-blur-md"
+        class="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300"
       ></div>
 
       <div
-        class="glass-card relative w-full max-w-lg p-8 border border-white/20 shadow-2xl animate-modal"
+        id="modalContent"
+        class="glass-card relative w-full max-w-lg p-8 border border-white/20 shadow-2xl"
       >
         <button
           onclick="toggleModal()"
@@ -369,7 +317,7 @@
             <input
               type="text"
               placeholder="Your Name"
-              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm"
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm text-white"
               required
             />
           </div>
@@ -382,10 +330,9 @@
             <input
               type="email"
               placeholder="example@gmail.com"
-              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm"
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm text-white"
               required
               pattern=".+@gmail\.com"
-              title="Please use a valid Gmail address (ending in @gmail.com)"
             />
           </div>
 
@@ -394,14 +341,19 @@
               class="block text-[10px] uppercase tracking-widest font-bold text-cyan-400 mb-2"
               >Service Category</label
             >
-            <select
-              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm appearance-none"
-            >
-              <option class="bg-[#050508]">Custom System Development</option>
-              <option class="bg-[#050508]">Software Installation</option>
-              <option class="bg-[#050508]">OS Formatting/Cleanup</option>
-              <option class="bg-[#050508]">IT Consultation</option>
-            </select>
+            <div class="relative">
+              <select
+                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm appearance-none text-white cursor-pointer"
+              >
+                <option class="bg-[#050508]">Custom System Development</option>
+                <option class="bg-[#050508]">Software Installation</option>
+                <option class="bg-[#050508]">OS Formatting/Cleanup</option>
+                <option class="bg-[#050508]">IT Consultation</option>
+              </select>
+              <i
+                class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none text-xs"
+              ></i>
+            </div>
           </div>
 
           <div>
@@ -412,14 +364,14 @@
             <textarea
               rows="4"
               placeholder="Describe your requirements..."
-              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm resize-none"
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm resize-none text-white"
               required
             ></textarea>
           </div>
 
           <button
             type="submit"
-            class="w-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-black py-4 rounded-xl uppercase tracking-widest text-xs hover:opacity-90 transition mt-4"
+            class="w-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-black py-4 rounded-xl uppercase tracking-widest text-xs hover:opacity-90 transition mt-4 active:scale-95"
           >
             Send Quotation Request
           </button>
@@ -429,17 +381,11 @@
 
     <footer class="text-center py-12 border-t border-white/5">
       <div class="flex flex-col items-center opacity-50 mb-4">
-        <div class="relative">
-          <div
-            class="absolute -inset-1 bg-cyan-400/20 rounded-xl blur opacity-25 group-hover:opacity-60 transition duration-300"
-          ></div>
-          <img
-            src="images/logo.jpg"
-            alt="INFO TECH LOGO"
-            class="relative h-12 w-12 object-cover rounded-xl border border-white/10"
-          />
-        </div>
-
+        <img
+          src="images/logo.jpg"
+          alt="INFO TECH"
+          class="h-10 w-10 rounded-lg mb-2 grayscale"
+        />
         <p class="text-[10px] tracking-widest font-bold">
           CALAMBA | CABUYAO | LAGUNA
         </p>
@@ -451,13 +397,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-      // Initialize Swipers
       const systemSwiper = new Swiper(".systemSwiper", {
         loop: true,
-        effect: "coverflow",
         centeredSlides: true,
         slidesPerView: "auto",
-        coverflowEffect: { rotate: 0, stretch: 0, depth: 100, modifier: 2.5 },
         pagination: { el: ".swiper-pagination", clickable: true },
         navigation: { nextEl: ".swiper-next-btn", prevEl: ".swiper-prev-btn" },
       });
@@ -472,33 +415,42 @@
         },
       });
 
-      // Modal Logic
+      // MODAL LOGIC WITH ANIMATION
+      const modal = document.getElementById("quoteModal");
+      const modalContent = document.getElementById("modalContent");
+      const modalOverlay = document.getElementById("modalOverlay");
+
       function toggleModal() {
-        const modal = document.getElementById("quoteModal");
         if (modal.classList.contains("hidden")) {
+          // Open
           modal.classList.remove("hidden");
+          modalContent.classList.remove("animate-modal-out");
+          modalContent.classList.add("animate-modal-in");
+          modalOverlay.style.opacity = "1";
           document.body.style.overflow = "hidden";
         } else {
-          modal.classList.add("hidden");
-          document.body.style.overflow = "auto";
+          // Close Animation
+          modalContent.classList.remove("animate-modal-in");
+          modalContent.classList.add("animate-modal-out");
+          modalOverlay.style.opacity = "0";
+
+          // Wait for animation to finish (300ms)
+          setTimeout(() => {
+            modal.classList.add("hidden");
+            document.body.style.overflow = "auto";
+          }, 300);
         }
       }
 
-      // Form Submission Handler
       function handleQuoteSubmit(e) {
         e.preventDefault();
         const btn = e.target.querySelector("button");
-        const originalText = btn.innerText;
-
-        // Visual Feedback
         btn.innerText = "SENDING...";
         btn.disabled = true;
 
         setTimeout(() => {
-          alert(
-            "Success! Your request has been sent. We will reply to your Gmail within 24 hours.",
-          );
-          btn.innerText = originalText;
+          alert("Success! Your request has been sent.");
+          btn.innerText = "Send Quotation Request";
           btn.disabled = false;
           e.target.reset();
           toggleModal();
