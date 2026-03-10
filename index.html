@@ -113,10 +113,37 @@
       .animate-modal-out {
         animation: modalOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
       }
+
+      /* Floating Social Button */
+      .fb-float {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 90;
+        transition: all 0.3s ease;
+      }
+      .fb-float:hover {
+        transform: scale(1.1) rotate(5deg);
+      }
     </style>
   </head>
   <body>
     <div class="glow-bg"></div>
+
+    <a
+      href="https://www.facebook.com/profile.php?id=61586042578529"
+      target="_blank"
+      class="fb-float flex items-center gap-3 bg-[#0866FF] p-3 pr-6 rounded-full shadow-2xl shadow-blue-500/20 border border-white/20"
+    >
+      <div
+        class="bg-white rounded-full w-10 h-10 flex items-center justify-center"
+      >
+        <i class="fab fa-facebook-messenger text-[#0866FF] text-xl"></i>
+      </div>
+      <span class="text-white font-bold text-sm tracking-tight"
+        >Chat with us</span
+      >
+    </a>
 
     <nav class="flex justify-between items-center p-8 max-w-7xl mx-auto h-24">
       <a href="#" class="flex items-center gap-4 group">
@@ -147,9 +174,6 @@
         <a href="#systems" class="hover:text-cyan-400 transition">Portfolio</a>
         <a href="#installers" class="hover:text-purple-400 transition"
           >Installers</a
-        >
-        <a href="mailto:yourgmail@gmail.com" class="hover:text-white transition"
-          >Contact</a
         >
       </div>
 
@@ -511,16 +535,46 @@
 
       function handleQuoteSubmit(e) {
         e.preventDefault();
+
+        // Get Form Data
+        const name = e.target.querySelector('input[type="text"]').value;
+        const email = e.target.querySelector('input[type="email"]').value;
+        const category = e.target.querySelector("select").value;
+        const message = e.target.querySelector("textarea").value;
+
         const btn = e.target.querySelector("button");
-        btn.innerText = "SENDING...";
+        btn.innerText = "PREPARING EMAIL...";
         btn.disabled = true;
+
+        // Construct Email Body
+        const subject = encodeURIComponent(
+          `Quote Request: ${category} - ${name}`,
+        );
+        const body = encodeURIComponent(
+          `Hello INFO TECH Team,\n\n` +
+            `I would like to request a quote for the following:\n\n` +
+            `Name: ${name}\n` +
+            `Client Email: ${email}\n` +
+            `Category: ${category}\n` +
+            `Message: ${message}\n\n` +
+            `Sent from INFO TECH Web Portal`,
+        );
+
+        const companyEmail = "lesterondoy456@gmail.com";
+
         setTimeout(() => {
-          alert("Success! Your request has been sent.");
-          btn.innerText = "Send Quotation Request";
-          btn.disabled = false;
-          e.target.reset();
-          toggleModal();
-        }, 1500);
+          window.location.href = `mailto:${companyEmail}?subject=${subject}&body=${body}`;
+
+          btn.innerText = "REDIRECTED TO MAIL";
+
+          setTimeout(() => {
+            alert("Opening your email application to send the request!");
+            btn.innerText = "Send Quotation Request";
+            btn.disabled = false;
+            e.target.reset();
+            toggleModal();
+          }, 1000);
+        }, 800);
       }
     </script>
   </body>
