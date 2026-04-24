@@ -1,10 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>INFO TECH | Systems & Software Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
@@ -14,82 +13,742 @@
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,800&display=swap");
+
+      /* ── Theme Variables ──────────────────────────────── */
+      :root {
+        --primary-color: #00a545;
+        --primary-dark: #007a33;
+        --primary-color-light: #e6f6ec;
+        --primary-glow: rgba(0, 165, 69, 0.12);
+
+        --body-color: #eef2f7;
+        --surface: #ffffff;
+        --surface-alt: #f8fafc;
+        --card-bg: #ffffff;
+
+        --text-color: #1e293b;
+        --text-secondary: #64748b;
+        --text-muted: #94a3b8;
+
+        --border-color: #e2e8f0;
+        --input-bg: #f8fafc;
+
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+        --tran-03: all 0.2s ease;
+        --tran-04: all 0.3s ease;
+        --tran-05: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+        --nav-blur: rgba(255, 255, 255, 0.85);
+        --hero-orb1: rgba(0, 165, 69, 0.18);
+        --hero-orb2: rgba(0, 122, 51, 0.1);
+      }
+
+      [data-theme="dark"] {
+        --body-color: #0a0f1a;
+        --surface: #111827;
+        --surface-alt: #0a0f1a;
+        --card-bg: #111827;
+
+        --text-color: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+
+        --border-color: #1e2d3d;
+        --input-bg: #0a0f1a;
+
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+        --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
+
+        --primary-glow: rgba(0, 165, 69, 0.2);
+        --nav-blur: rgba(10, 15, 26, 0.9);
+        --hero-orb1: rgba(0, 165, 69, 0.12);
+        --hero-orb2: rgba(0, 122, 51, 0.08);
+      }
+
+      /* ── Base ─────────────────────────────────────────── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
 
       body {
-        background: #050508;
-        color: white;
+        background: var(--body-color);
+        color: var(--text-color);
         font-family: "Plus Jakarta Sans", sans-serif;
         overflow-x: hidden;
+        transition:
+          background 0.35s ease,
+          color 0.35s ease;
+        min-height: 100vh;
       }
 
-      .glow-bg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(
-          circle at 50% -20%,
-          #1e2a4a 0%,
-          #050508 60%
-        );
-        z-index: -1;
+      /* ── Scrollbar ────────────────────────────────────── */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--body-color);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 99px;
       }
 
-      .glass-card {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 24px;
-      }
-
-      /* System Library Styling */
-      .system-slide {
-        height: 480px;
-        border-radius: 20px;
+      /* ── Hero Background Orbs ─────────────────────────── */
+      .hero-orbs {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
         overflow: hidden;
-        border: 1px solid rgba(0, 242, 255, 0.2);
+        z-index: 0;
+      }
+      .hero-orbs span {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        animation: orbFloat 8s ease-in-out infinite alternate;
+      }
+      .hero-orbs span:nth-child(1) {
+        width: 600px;
+        height: 600px;
+        top: -200px;
+        left: -100px;
+        background: var(--hero-orb1);
+      }
+      .hero-orbs span:nth-child(2) {
+        width: 400px;
+        height: 400px;
+        top: 100px;
+        right: -80px;
+        background: var(--hero-orb2);
+        animation-delay: 2s;
+      }
+      .hero-orbs span:nth-child(3) {
+        width: 300px;
+        height: 300px;
+        bottom: -50px;
+        left: 40%;
+        background: var(--hero-orb1);
+        animation-delay: 4s;
+      }
+      @keyframes orbFloat {
+        from {
+          transform: translate(0, 0) scale(1);
+        }
+        to {
+          transform: translate(30px, 20px) scale(1.08);
+        }
+      }
+
+      /* ── Navbar ───────────────────────────────────────── */
+      .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 80;
+        background: var(--nav-blur);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border-color);
+        transition: var(--tran-04);
+      }
+      .navbar-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        flex-shrink: 0;
+      }
+      .nav-logo-img-wrap {
         position: relative;
+        width: 42px;
+        height: 42px;
       }
-
-      .system-slide img {
-        transition: transform 0.5s ease;
+      .nav-logo-img-wrap::after {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        border-radius: 14px;
+        background: var(--primary-color);
+        opacity: 0.15;
+        transition: opacity 0.3s;
       }
-      .system-slide:hover img {
-        transform: scale(1.05);
+      .nav-logo:hover .nav-logo-img-wrap::after {
+        opacity: 0.35;
       }
-
-      /* Installer Library */
-      .installerSwiper {
-        padding: 40px 20px !important;
-        margin: -40px -20px !important;
-      }
-
-      .installer-card {
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        cursor: pointer;
+      .nav-logo img {
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 1.5px solid var(--border-color);
         position: relative;
         z-index: 1;
       }
+      .nav-logo-text {
+        display: flex;
+        flex-direction: column;
+      }
+      .nav-logo-name {
+        font-size: 20px;
+        font-weight: 800;
+        font-style: italic;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        color: var(--text-color);
+      }
+      .nav-logo-name span {
+        color: var(--primary-color);
+      }
+      .nav-logo-sub {
+        font-size: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+        color: var(--text-muted);
+        font-weight: 700;
+        margin-top: 2px;
+      }
+      .nav-links {
+        display: none;
+        gap: 32px;
+        list-style: none;
+      }
+      @media (min-width: 768px) {
+        .nav-links {
+          display: flex;
+        }
+      }
+      .nav-links a {
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-secondary);
+        transition: color 0.2s;
+        padding: 6px 0;
+        position: relative;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-color);
+        border-radius: 2px;
+        transition: width 0.25s ease;
+      }
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
 
-      .installer-card:hover {
-        transform: translateY(-15px) scale(1.08);
-        z-index: 50;
-        border-color: #7000ff;
-        background: rgba(112, 0, 255, 0.08);
-        box-shadow: 0 25px 50px -12px rgba(112, 0, 255, 0.5);
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      /* Theme Toggle */
+      .theme-toggle {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        border: 1.5px solid var(--border-color);
+        background: var(--surface);
+        color: var(--text-secondary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        transition: var(--tran-03);
+        flex-shrink: 0;
+      }
+      .theme-toggle:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+        background: var(--primary-color-light);
+      }
+
+      /* CTA Button */
+      .btn-primary {
+        background: var(--primary-color);
+        color: #fff;
+        border: none;
+        padding: 10px 22px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        transition: var(--tran-03);
+        white-space: nowrap;
+        box-shadow: 0 4px 14px var(--primary-glow);
+      }
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(0, 165, 69, 0.3);
+      }
+      .btn-primary:active {
+        transform: scale(0.97);
+      }
+
+      /* ── Hero ─────────────────────────────────────────── */
+      .hero {
+        position: relative;
+        padding: 100px 24px 80px;
+        text-align: center;
+        overflow: hidden;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 16px;
+        border-radius: 99px;
+        background: var(--primary-color-light);
+        border: 1px solid rgba(0, 165, 69, 0.25);
+        color: var(--primary-dark);
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: 28px;
+      }
+      .hero-badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(1.4);
+        }
+      }
+      .hero h1 {
+        font-size: clamp(48px, 8vw, 96px);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        margin-bottom: 24px;
+        color: var(--text-color);
+        position: relative;
+        z-index: 1;
+      }
+      .hero h1 .gradient-text {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          #00d166 50%,
+          #007a33 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .hero-sub {
+        font-size: 16px;
+        color: var(--text-secondary);
+        max-width: 480px;
+        margin: 0 auto 40px;
+        line-height: 1.7;
+        position: relative;
+        z-index: 1;
+      }
+      .hero-actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 1;
+      }
+      .btn-secondary {
+        background: var(--surface);
+        color: var(--text-color);
+        border: 1.5px solid var(--border-color);
+        padding: 10px 22px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        transition: var(--tran-03);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn-secondary:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      /* Stats Row */
+      .stats-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 64px;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 1;
+      }
+      .stat-item {
+        text-align: center;
+      }
+      .stat-num {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--primary-color);
+        letter-spacing: -0.03em;
+      }
+      .stat-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--text-muted);
+        font-weight: 600;
+        margin-top: 2px;
+      }
+      .stat-divider {
+        width: 1px;
+        height: 32px;
+        background: var(--border-color);
+      }
+
+      /* ── Section Shared ───────────────────────────────── */
+      .section-wrap {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .section-title {
+        font-size: 30px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--text-color);
+        line-height: 1.1;
+      }
+      .section-sub {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin-top: 4px;
+        font-weight: 500;
+      }
+      .section-label {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--primary-color);
+        background: var(--primary-color-light);
+        padding: 4px 12px;
+        border-radius: 99px;
+        margin-bottom: 8px;
+      }
+
+      /* ── Systems Swiper ───────────────────────────────── */
+      #systems {
+        padding: 80px 0;
+      }
+
+      .swiper-nav {
+        display: flex;
+        gap: 8px;
+      }
+      .swiper-nav-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        border: 1.5px solid var(--border-color);
+        background: var(--surface);
+        color: var(--text-secondary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        transition: var(--tran-03);
+      }
+      .swiper-nav-btn:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+        background: var(--primary-color-light);
+      }
+
+      .system-slide {
+        height: 460px;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1.5px solid var(--border-color);
+        position: relative;
+        background: var(--card-bg);
+        box-shadow: var(--shadow-md);
+        transition: box-shadow 0.3s;
+      }
+      .system-slide:hover {
+        box-shadow: var(--shadow-lg);
+      }
+      .system-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.75;
+        transition:
+          transform 0.5s ease,
+          opacity 0.3s;
+      }
+      .system-slide:hover img {
+        transform: scale(1.04);
+        opacity: 0.85;
+      }
+      .system-slide-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 32px 28px;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.85) 0%,
+          rgba(0, 0, 0, 0.4) 60%,
+          transparent 100%
+        );
+      }
+      .system-slide-tag {
+        display: inline-block;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        padding: 3px 10px;
+        border-radius: 99px;
+        background: rgba(0, 165, 69, 0.25);
+        color: #4ade80;
+        border: 1px solid rgba(0, 165, 69, 0.3);
+        margin-bottom: 10px;
+      }
+      .system-slide-title {
+        font-size: 22px;
+        font-weight: 800;
+        color: #fff;
+        line-height: 1.2;
+        margin-bottom: 6px;
+      }
+      .system-slide-desc {
+        font-size: 13px;
+        font-weight: 500;
+        opacity: 0.8;
       }
 
       .swiper-pagination-bullet {
-        background: #00f2ff !important;
+        background: var(--primary-color) !important;
+        opacity: 0.4 !important;
+      }
+      .swiper-pagination-bullet-active {
+        opacity: 1 !important;
       }
 
-      /* Modal Animations */
+      /* ── Installer Cards ──────────────────────────────── */
+      #installers {
+        padding: 80px 0 100px;
+      }
+      #installers .section-header {
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .installerSwiper {
+        padding: 24px 12px 40px !important;
+        margin: -24px -12px -40px !important;
+      }
+
+      .installer-card {
+        background: var(--card-bg);
+        border: 1.5px solid var(--border-color);
+        border-radius: 20px;
+        padding: 32px 24px;
+        text-align: center;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        transition: var(--tran-05);
+        box-shadow: var(--shadow-sm);
+      }
+      .installer-card:hover {
+        transform: translateY(-10px) scale(1.03);
+        z-index: 10;
+        border-color: var(--primary-color);
+        box-shadow: 0 20px 40px var(--primary-glow);
+      }
+      .installer-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 26px;
+        border: 1.5px solid transparent;
+        transition: var(--tran-03);
+      }
+      .installer-card:hover .installer-icon {
+        border-color: var(--primary-color);
+        background: var(--primary-color-light) !important;
+        color: var(--primary-color) !important;
+      }
+      .installer-name {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--text-color);
+        margin-bottom: 4px;
+      }
+      .installer-desc {
+        font-size: 12px;
+        color: var(--text-secondary);
+        margin-bottom: 18px;
+        font-weight: 500;
+      }
+      .installer-badge {
+        display: inline-block;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        padding: 4px 12px;
+        border-radius: 99px;
+      }
+
+      /* ── Features Strip ───────────────────────────────── */
+      .features-strip {
+        background: var(--surface);
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+      }
+      .features-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 40px 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 32px;
+      }
+      .feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .feature-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: var(--primary-color-light);
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+      .feature-text-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-color);
+        margin-bottom: 2px;
+      }
+      .feature-text-sub {
+        font-size: 12px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      /* ── Modal ────────────────────────────────────────── */
+      .modal-wrap {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .modal-wrap.open {
+        display: flex;
+      }
+      .modal-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .modal-box {
+        position: relative;
+        z-index: 1;
+        background: var(--surface);
+        border: 1.5px solid var(--border-color);
+        border-radius: 24px;
+        padding: 36px;
+        width: 100%;
+        max-width: 480px;
+        box-shadow: var(--shadow-lg);
+      }
       @keyframes modalIn {
         from {
           opacity: 0;
-          transform: scale(0.95) translateY(20px);
+          transform: scale(0.95) translateY(16px);
         }
         to {
           opacity: 1;
@@ -103,424 +762,762 @@
         }
         to {
           opacity: 0;
-          transform: scale(0.95) translateY(20px);
+          transform: scale(0.95) translateY(16px);
         }
       }
-
       .animate-modal-in {
         animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
       }
       .animate-modal-out {
-        animation: modalOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        animation: modalOut 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        border: 1.5px solid var(--border-color);
+        background: var(--surface-alt);
+        color: var(--text-secondary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        transition: var(--tran-03);
+      }
+      .modal-close:hover {
+        color: var(--text-color);
+        border-color: var(--text-secondary);
+      }
+
+      .modal-title {
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--text-color);
+        letter-spacing: -0.02em;
+        margin-bottom: 4px;
+      }
+      .modal-sub {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin-bottom: 28px;
+      }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      .form-label {
+        display: block;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--primary-color);
+        margin-bottom: 6px;
+      }
+      .form-input,
+      .form-select,
+      .form-textarea {
+        width: 100%;
+        background: var(--input-bg);
+        border: 1.5px solid var(--border-color);
+        border-radius: 12px;
+        padding: 11px 14px;
+        font-size: 13px;
+        color: var(--text-color);
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+        appearance: none;
+      }
+      .form-input::placeholder,
+      .form-textarea::placeholder {
+        color: var(--text-muted);
+      }
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+        border-color: var(--primary-color);
+      }
+      .form-textarea {
+        resize: none;
+      }
+      .form-select-wrap {
+        position: relative;
+      }
+      .form-select-wrap i {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 11px;
+        color: var(--text-muted);
+        pointer-events: none;
+      }
+      .form-select option {
+        background: var(--surface);
+        color: var(--text-color);
+      }
+      .btn-submit {
+        width: 100%;
+        background: var(--primary-color);
+        color: #fff;
+        border: none;
+        padding: 14px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        transition: var(--tran-03);
+        margin-top: 8px;
+        box-shadow: 0 4px 14px var(--primary-glow);
+      }
+      .btn-submit:hover:not(:disabled) {
+        background: var(--primary-dark);
+        box-shadow: 0 6px 20px rgba(0, 165, 69, 0.35);
+        transform: translateY(-1px);
+      }
+      .btn-submit:active {
+        transform: scale(0.98);
+      }
+      .btn-submit:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      /* ── Messenger Float ──────────────────────────────── */
+      .fb-float {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        z-index: 90;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #0866ff;
+        padding: 10px 18px 10px 10px;
+        border-radius: 99px;
+        text-decoration: none;
+        box-shadow: 0 8px 24px rgba(8, 102, 255, 0.35);
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        transition: var(--tran-03);
+      }
+      .fb-float:hover {
+        transform: scale(1.05) translateY(-2px);
+        box-shadow: 0 12px 32px rgba(8, 102, 255, 0.45);
+      }
+      .fb-float-icon {
+        width: 38px;
+        height: 38px;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: #0866ff;
+        flex-shrink: 0;
+      }
+      .fb-float span {
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+        white-space: nowrap;
+      }
+
+      /* ── Footer ───────────────────────────────────────── */
+      footer {
+        background: var(--surface);
+        border-top: 1px solid var(--border-color);
+        padding: 48px 24px;
+      }
+      .footer-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        text-align: center;
+      }
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .footer-logo img {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        object-fit: cover;
+        filter: grayscale(0.3);
+        border: 1px solid var(--border-color);
+      }
+      .footer-logo-name {
+        font-size: 16px;
+        font-weight: 800;
+        font-style: italic;
+        letter-spacing: -0.03em;
+        color: var(--text-color);
+      }
+      .footer-logo-name span {
+        color: var(--primary-color);
+      }
+      .footer-location {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+        font-weight: 600;
+      }
+      .footer-copy {
+        font-size: 11px;
+        color: var(--text-muted);
       }
     </style>
   </head>
+
   <body>
-    <div class="glow-bg"></div>
-
-    <nav class="flex justify-between items-center p-8 max-w-7xl mx-auto h-24">
-      <a href="#" class="flex items-center gap-4 group">
-        <div class="relative">
-          <div
-            class="absolute -inset-1 bg-cyan-400/20 rounded-xl blur opacity-25 group-hover:opacity-60 transition duration-300"
-          ></div>
-          <img
-            src="images/logo.jpg"
-            alt="INFO TECH LOGO"
-            class="relative h-12 w-12 object-cover rounded-xl border border-white/10"
-          />
-        </div>
-        <div class="flex flex-col justify-center">
-          <div class="text-2xl font-black italic tracking-tighter leading-none">
-            INFO<span class="text-cyan-400">TECH</span>
-          </div>
-          <span
-            class="text-[8px] uppercase tracking-[0.3em] text-gray-500 font-bold leading-none mt-1"
-            >Software Services</span
-          >
-        </div>
-      </a>
-
-      <div
-        class="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest text-gray-400"
-      >
-        <a href="#systems" class="hover:text-cyan-400 transition">Portfolio</a>
-        <a href="#installers" class="hover:text-purple-400 transition"
-          >Installers</a
-        >
-        <a href="mailto:yourgmail@gmail.com" class="hover:text-white transition"
-          >Contact</a
-        >
+    <!-- ── Messenger Float ─────────────────────────────── -->
+    <a
+      href="https://www.facebook.com/profile.php?id=61586042578529"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="fb-float"
+    >
+      <div class="fb-float-icon">
+        <i class="fab fa-facebook-messenger"></i>
       </div>
+      <span>Chat with us</span>
+    </a>
 
-      <button
-        onclick="toggleModal()"
-        class="bg-white text-black px-6 py-2 rounded-full font-bold text-sm hover:bg-cyan-400 transition shadow-lg shadow-white/5 active:scale-95"
-      >
-        GET A QUOTE
-      </button>
+    <!-- ── Navbar ──────────────────────────────────────── -->
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a href="#" class="nav-logo">
+          <div class="nav-logo-img-wrap">
+            <img src="images/logo.png" alt="INFO TECH Logo" />
+          </div>
+          <div class="nav-logo-text">
+            <div class="nav-logo-name">INFO<span>TECH</span></div>
+            <span class="nav-logo-sub">System Solution</span>
+          </div>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#systems">Portfolio</a></li>
+          <li><a href="#installers">Installers</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-right">
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+            title="Toggle dark / light mode"
+          >
+            <i class="fas fa-moon" id="themeIcon"></i>
+          </button>
+          <button class="btn-primary" onclick="toggleModal()">
+            Get a Quote
+          </button>
+        </div>
+      </div>
     </nav>
 
-    <header class="text-center py-16 px-4">
-      <span
-        class="px-4 py-1 rounded-full border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-4 inline-block uppercase tracking-widest"
-        >Calamba & Cabuyao Services</span
-      >
-      <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter mb-6">
-        Build.
-        <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500"
-          >Deploy.</span
-        >
+    <!-- ── Hero ───────────────────────────────────────── -->
+    <header class="hero">
+      <div class="hero-orbs"><span></span><span></span><span></span></div>
+
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        Calamba &amp; Cabuyao Services
+      </div>
+
+      <h1>
+        Build.<br />
+        <span class="gradient-text">Deploy.</span><br />
         Scale.
       </h1>
+
+      <p class="hero-sub">
+        Bespoke ERP systems, premium software installations &amp; full IT
+        support for businesses in Laguna.
+      </p>
+
+      <div class="hero-actions">
+        <button
+          class="btn-primary"
+          style="font-size: 13px; padding: 12px 28px"
+          onclick="toggleModal()"
+        >
+          <i class="fas fa-paper-plane" style="margin-right: 8px"></i>Request a
+          Quote
+        </button>
+        <a href="#systems" class="btn-secondary">
+          <i class="fas fa-grid-2"></i> View Portfolio
+        </a>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Systems Deployed</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">100+</div>
+          <div class="stat-label">Installations Done</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">5★</div>
+          <div class="stat-label">Client Rating</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-num">24h</div>
+          <div class="stat-label">Turnaround</div>
+        </div>
+      </div>
     </header>
 
-    <section id="systems" class="max-w-7xl mx-auto px-6 mb-32">
-      <div class="flex justify-between items-end mb-8">
-        <div>
-          <h2 class="text-4xl font-black text-white">Systems Library</h2>
-          <p class="text-gray-500">
-            Bespoke ERP & Business Management Software
+    <!-- ── Features Strip ─────────────────────────────── -->
+    <div class="features-strip">
+      <div class="features-inner">
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-code"></i></div>
+          <div>
+            <div class="feature-text-title">Custom Development</div>
+            <div class="feature-text-sub">
+              Tailored ERP &amp; business systems built for your workflow
+            </div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-download"></i></div>
+          <div>
+            <div class="feature-text-title">Software Install</div>
+            <div class="feature-text-sub">
+              Licensed &amp; activated software ready in hours
+            </div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+          <div>
+            <div class="feature-text-title">OS Formatting</div>
+            <div class="feature-text-sub">
+              Clean slate setup with security &amp; optimization
+            </div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-headset"></i></div>
+          <div>
+            <div class="feature-text-title">IT Consultation</div>
+            <div class="feature-text-sub">
+              Expert advice on infrastructure &amp; technology choices
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Systems Library ────────────────────────────── -->
+    <section id="systems">
+      <div class="section-wrap">
+        <div class="section-header">
+          <div>
+            <span class="section-label">Portfolio</span>
+            <h2 class="section-title">Systems Library</h2>
+            <p class="section-sub">
+              Bespoke ERP &amp; Business Management Software
+            </p>
+          </div>
+          <div class="swiper-nav">
+            <button
+              class="swiper-nav-btn swiper-prev-btn"
+              aria-label="Previous"
+            >
+              <i class="fas fa-arrow-left"></i>
+            </button>
+            <button class="swiper-nav-btn swiper-next-btn" aria-label="Next">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="swiper systemSwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide system-slide">
+              <img src="images/financialsystem.png" alt="Financial ERP" />
+              <div class="system-slide-overlay">
+                <div class="system-slide-tag">Finance</div>
+                <h3 class="system-slide-title">Financial ERP System</h3>
+                <p class="system-slide-desc" style="color: #86efac">
+                  Custom Accounting, Cashflow &amp; Real-time Analytics
+                </p>
+              </div>
+            </div>
+
+            <div class="swiper-slide system-slide">
+              <img src="images/warehousesystem.png" alt="Warehouse" />
+              <div class="system-slide-overlay">
+                <div class="system-slide-tag">Inventory</div>
+                <h3 class="system-slide-title">Warehouse Management</h3>
+                <p class="system-slide-desc" style="color: #c4b5fd">
+                  Inventory Control &amp; Stock Movement Tracking
+                </p>
+              </div>
+            </div>
+
+            <div class="swiper-slide system-slide">
+              <img src="images/livesellingsystem.png" alt="Live Selling" />
+              <div class="system-slide-overlay">
+                <div class="system-slide-tag">Live Selling</div>
+                <h3 class="system-slide-title">Live Selling System</h3>
+                <p class="system-slide-desc" style="color: #fde68a">
+                  Real-time Sales &amp; Customer Interaction
+                </p>
+              </div>
+            </div>
+
+            <div class="swiper-slide system-slide">
+              <img src="images/deliverysystem.png" alt="Invoices" />
+              <div class="system-slide-overlay">
+                <div class="system-slide-tag">Logistics</div>
+                <h3 class="system-slide-title">Invoices &amp; Delivery</h3>
+                <p class="system-slide-desc" style="color: #6ee7b7">
+                  Billing Automation &amp; Logistics Management
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="swiper-pagination"
+            style="margin-top: 20px; position: relative"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Installer Library ──────────────────────────── -->
+    <section id="installers">
+      <div class="section-wrap">
+        <div class="section-header">
+          <span class="section-label">Software</span>
+          <h2 class="section-title">Installer Library</h2>
+          <p class="section-sub">
+            Professional Grade Software Ready for Installation
           </p>
         </div>
-        <div class="flex gap-2">
-          <div
-            class="swiper-prev-btn cursor-pointer p-3 rounded-full bg-white/5 hover:bg-white/10 text-cyan-400 transition"
-          >
-            <i class="fas fa-arrow-left"></i>
-          </div>
-          <div
-            class="swiper-next-btn cursor-pointer p-3 rounded-full bg-white/5 hover:bg-white/10 text-cyan-400 transition"
-          >
-            <i class="fas fa-arrow-right"></i>
-          </div>
-        </div>
-      </div>
 
-      <div class="swiper systemSwiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide system-slide glass-card">
-            <img
-              src="images/financialsystem.png"
-              class="w-full h-full object-cover opacity-70"
-              alt="Financial ERP"
-            />
-            <div
-              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/60 to-transparent w-full"
-            >
-              <h3 class="text-2xl font-bold">Financial ERP System</h3>
-              <p class="text-cyan-400">
-                Custom Accounting, Cashflow & Real-time Analytics
-              </p>
+        <div class="swiper installerSwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" style="padding: 0 6px">
+              <div class="installer-card">
+                <div
+                  class="installer-icon"
+                  style="background: rgba(59, 130, 246, 0.1); color: #3b82f6"
+                >
+                  <i class="fab fa-windows"></i>
+                </div>
+                <div class="installer-name">Windows 10</div>
+                <div class="installer-desc">OS Format &amp; Optimization</div>
+                <span
+                  class="installer-badge"
+                  style="background: rgba(59, 130, 246, 0.1); color: #3b82f6"
+                  >Activated</span
+                >
+              </div>
             </div>
-          </div>
-          <div class="swiper-slide system-slide glass-card">
-            <img
-              src="images/warehousesystem.png"
-              class="w-full h-full object-cover opacity-70"
-              alt="Warehouse"
-            />
-            <div
-              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/60 to-transparent w-full"
-            >
-              <h3 class="text-2xl font-bold">Warehouse Management</h3>
-              <p class="text-purple-400">
-                Inventory Control & Stock Movement Tracking
-              </p>
-            </div>
-          </div>
-          <div class="swiper-slide system-slide glass-card">
-            <img
-              src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1200"
-              class="w-full h-full object-cover opacity-70"
-              alt="Production"
-            />
-            <div
-              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/60 to-transparent w-full"
-            >
-              <h3 class="text-2xl font-bold">Production Tracking</h3>
-              <p class="text-yellow-400">
-                Manufacturing Workflow & Output Monitoring
-              </p>
-            </div>
-          </div>
-          <div class="swiper-slide system-slide glass-card">
-            <img
-              src="images/deliverysystem.png"
-              class="w-full h-full object-cover opacity-70"
-              alt="Invoices"
-            />
-            <div
-              class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/60 to-transparent w-full"
-            >
-              <h3 class="text-2xl font-bold">Invoices & Delivery</h3>
-              <p class="text-green-400">
-                Billing Automation & Logistics Management
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-pagination mt-12"></div>
-      </div>
-    </section>
 
-    <section id="installers" class="max-w-7xl mx-auto px-6 pb-32">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-black mb-2">Installer Library</h2>
-        <p class="text-gray-500">
-          Professional Grade Software Ready for Installation
-        </p>
-      </div>
-      <div class="swiper installerSwiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide px-3">
-            <div class="installer-card glass-card p-8 text-center h-full">
-              <div
-                class="w-20 h-20 bg-blue-600/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-blue-500/30"
-              >
-                <i class="fab fa-windows text-3xl text-blue-400"></i>
+            <div class="swiper-slide" style="padding: 0 6px">
+              <div class="installer-card">
+                <div
+                  class="installer-icon"
+                  style="background: rgba(239, 68, 68, 0.1); color: #ef4444"
+                >
+                  <i class="fas fa-pencil-ruler"></i>
+                </div>
+                <div class="installer-name">AutoCAD</div>
+                <div class="installer-desc">Architecture &amp; 3D Design</div>
+                <span
+                  class="installer-badge"
+                  style="background: rgba(239, 68, 68, 0.1); color: #ef4444"
+                  >2024 Version</span
+                >
               </div>
-              <h4 class="text-xl font-bold mb-1">Windows 10</h4>
-              <p class="text-sm text-gray-500 mb-6">OS Format & Optimization</p>
-              <span
-                class="text-[10px] bg-blue-500/20 text-blue-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
-                >Activated</span
-              >
             </div>
-          </div>
-          <div class="swiper-slide px-3">
-            <div class="installer-card glass-card p-8 text-center h-full">
-              <div
-                class="w-20 h-20 bg-red-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-red-500/30"
-              >
-                <i class="fas fa-pencil-ruler text-3xl text-red-500"></i>
+
+            <div class="swiper-slide" style="padding: 0 6px">
+              <div class="installer-card">
+                <div
+                  class="installer-icon"
+                  style="background: rgba(99, 102, 241, 0.1); color: #6366f1"
+                >
+                  <i class="fas fa-camera-retro"></i>
+                </div>
+                <div class="installer-name">AI &amp; Photoshop</div>
+                <div class="installer-desc">Graphics &amp; Generative Fill</div>
+                <span
+                  class="installer-badge"
+                  style="background: rgba(99, 102, 241, 0.1); color: #6366f1"
+                  >Full Version</span
+                >
               </div>
-              <h4 class="text-xl font-bold mb-1">AutoCAD</h4>
-              <p class="text-sm text-gray-500 mb-6">Architecture & 3D Design</p>
-              <span
-                class="text-[10px] bg-red-500/20 text-red-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
-                >2024 Version</span
-              >
             </div>
-          </div>
-          <div class="swiper-slide px-3">
-            <div class="installer-card glass-card p-8 text-center h-full">
-              <div
-                class="w-20 h-20 bg-blue-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-blue-500/30"
-              >
-                <i class="fas fa-camera-retro text-3xl text-blue-500"></i>
+
+            <div class="swiper-slide" style="padding: 0 6px">
+              <div class="installer-card">
+                <div
+                  class="installer-icon"
+                  style="background: rgba(249, 115, 22, 0.1); color: #f97316"
+                >
+                  <i class="fas fa-file-word"></i>
+                </div>
+                <div class="installer-name">Microsoft Office</div>
+                <div class="installer-desc">Business Productivity Hub</div>
+                <span
+                  class="installer-badge"
+                  style="background: rgba(249, 115, 22, 0.1); color: #f97316"
+                  >Activated (2025)</span
+                >
               </div>
-              <h4 class="text-xl font-bold mb-1">AI & Photoshop</h4>
-              <p class="text-sm text-gray-500 mb-6">
-                Graphics & Generative Fill
-              </p>
-              <span
-                class="text-[10px] bg-blue-500/20 text-blue-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
-                >Full Version</span
-              >
             </div>
-          </div>
-          <div class="swiper-slide px-3">
-            <div class="installer-card glass-card p-8 text-center h-full">
-              <div
-                class="w-20 h-20 bg-orange-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-orange-500/30"
-              >
-                <i class="fas fa-file-word text-3xl text-orange-500"></i>
+
+            <div class="swiper-slide" style="padding: 0 6px">
+              <div class="installer-card">
+                <div
+                  class="installer-icon"
+                  style="background: rgba(234, 179, 8, 0.1); color: #eab308"
+                >
+                  <i class="fas fa-cube"></i>
+                </div>
+                <div class="installer-name">Inventor</div>
+                <div class="installer-desc">Mechanical Engineering</div>
+                <span
+                  class="installer-badge"
+                  style="background: rgba(234, 179, 8, 0.1); color: #eab308"
+                  >Professional (2025)</span
+                >
               </div>
-              <h4 class="text-xl font-bold mb-1">Microsoft Office</h4>
-              <p class="text-sm text-gray-500 mb-6">
-                Business Productivity Hub
-              </p>
-              <span
-                class="text-[10px] bg-orange-500/20 text-orange-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
-                >Activated (2025)</span
-              >
-            </div>
-          </div>
-          <div class="swiper-slide px-3">
-            <div class="installer-card glass-card p-8 text-center h-full">
-              <div
-                class="w-20 h-20 bg-yellow-500/20 rounded-2xl mx-auto flex items-center justify-center mb-6 border border-yellow-500/30"
-              >
-                <i class="fas fa-cube text-3xl text-yellow-500"></i>
-              </div>
-              <h4 class="text-xl font-bold mb-1">Inventor</h4>
-              <p class="text-sm text-gray-500 mb-6">Mechanical Engineering</p>
-              <span
-                class="text-[10px] bg-yellow-500/20 text-yellow-400 px-4 py-1.5 rounded-full uppercase font-black tracking-widest"
-                >Professional (2025)</span
-              >
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- ── Quote Modal ────────────────────────────────── -->
     <div
       id="quoteModal"
-      class="fixed inset-0 z-[100] hidden flex items-center justify-center px-4"
+      class="modal-wrap"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
     >
       <div
+        class="modal-overlay"
         id="modalOverlay"
         onclick="toggleModal()"
-        class="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300"
       ></div>
-      <div
-        id="modalContent"
-        class="glass-card relative w-full max-w-lg p-8 border border-white/20 shadow-2xl"
-      >
-        <button
-          onclick="toggleModal()"
-          class="absolute top-6 right-6 text-gray-400 hover:text-white transition"
-        >
-          <i class="fas fa-times text-xl"></i>
+      <div class="modal-box" id="modalContent">
+        <button class="modal-close" onclick="toggleModal()" aria-label="Close">
+          <i class="fas fa-times"></i>
         </button>
-        <h3 class="text-3xl font-black mb-2">Request a Quote</h3>
-        <p class="text-gray-400 text-sm mb-8">
+
+        <h3 class="modal-title" id="modalTitle">Request a Quote</h3>
+        <p class="modal-sub">
           Tell us about your project. We'll reply shortly.
         </p>
-        <form
-          id="quoteForm"
-          class="space-y-4"
-          onsubmit="handleQuoteSubmit(event)"
-        >
-          <div>
-            <label
-              class="block text-[10px] uppercase tracking-widest font-bold text-cyan-400 mb-2"
-              >Full Name</label
-            >
+
+        <form id="quoteForm" onsubmit="handleQuoteSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
             <input
               type="text"
-              placeholder="Your Name"
-              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm text-white"
+              class="form-input"
+              placeholder="Your full name"
               required
             />
           </div>
-          <div>
-            <label
-              class="block text-[10px] uppercase tracking-widest font-bold text-cyan-400 mb-2"
-              >Gmail Address</label
-            >
+
+          <div class="form-group">
+            <label class="form-label">Gmail Address</label>
             <input
               type="email"
+              class="form-input"
               placeholder="example@gmail.com"
-              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm text-white"
               required
               pattern=".+@gmail\.com"
             />
           </div>
-          <div>
-            <label
-              class="block text-[10px] uppercase tracking-widest font-bold text-cyan-400 mb-2"
-              >Service Category</label
-            >
-            <div class="relative">
-              <select
-                class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm appearance-none text-white cursor-pointer"
-              >
-                <option class="bg-[#050508]">Custom System Development</option>
-                <option class="bg-[#050508]">Software Installation</option>
-                <option class="bg-[#050508]">OS Formatting/Cleanup</option>
-                <option class="bg-[#050508]">IT Consultation</option>
+
+          <div class="form-group">
+            <label class="form-label">Service Category</label>
+            <div class="form-select-wrap">
+              <select class="form-select">
+                <option>Custom System Development</option>
+                <option>Software Installation</option>
+                <option>OS Formatting/Cleanup</option>
+                <option>IT Consultation</option>
               </select>
-              <i
-                class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none text-xs"
-              ></i>
+              <i class="fas fa-chevron-down"></i>
             </div>
           </div>
-          <div>
-            <label
-              class="block text-[10px] uppercase tracking-widest font-bold text-cyan-400 mb-2"
-              >Message</label
-            >
+
+          <div class="form-group">
+            <label class="form-label">Message</label>
             <textarea
+              class="form-textarea"
               rows="4"
               placeholder="Describe your requirements..."
-              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition text-sm resize-none text-white"
               required
             ></textarea>
           </div>
-          <button
-            type="submit"
-            class="w-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-black py-4 rounded-xl uppercase tracking-widest text-xs hover:opacity-90 transition mt-4 active:scale-95"
-          >
-            Send Quotation Request
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <i class="fas fa-paper-plane" style="margin-right: 8px"></i>Send
+            Quotation Request
           </button>
         </form>
       </div>
     </div>
 
-    <footer class="text-center py-12 border-t border-white/5">
-      <div class="flex flex-col items-center opacity-50 mb-4">
-        <img
-          src="images/logo.jpg"
-          alt="INFO TECH"
-          class="h-10 w-10 rounded-lg mb-2 grayscale"
-        />
-        <p class="text-[10px] tracking-widest font-bold">
-          CALAMBA | CABUYAO | LAGUNA
-        </p>
+    <!-- ── Footer ─────────────────────────────────────── -->
+    <footer id="contact">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="images/logo.png" alt="INFO TECH" />
+          <div class="footer-logo-name">INFO<span>TECH</span></div>
+        </div>
+        <div class="footer-location">
+          Calamba &nbsp;|&nbsp; Cabuyao &nbsp;|&nbsp; Laguna
+        </div>
+        <div class="footer-copy">
+          © 2026 INFO TECH System Solution. All rights reserved.
+        </div>
       </div>
-      <p class="text-xs opacity-30">
-        © 2026 INFO TECH SOFTWARE SERVICES. ALL RIGHTS RESERVED.
-      </p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+      /* ── Swiper Init ─────────────────────────────── */
       const systemSwiper = new Swiper(".systemSwiper", {
         loop: true,
         centeredSlides: true,
         slidesPerView: "auto",
+        spaceBetween: 20,
         pagination: { el: ".swiper-pagination", clickable: true },
         navigation: { nextEl: ".swiper-next-btn", prevEl: ".swiper-prev-btn" },
       });
 
       const installerSwiper = new Swiper(".installerSwiper", {
-        slidesPerView: 1.5,
-        spaceBetween: 10,
+        slidesPerView: 1.4,
+        spaceBetween: 0,
         loop: true,
         breakpoints: {
-          640: { slidesPerView: 2, spaceBetween: 20 },
-          1024: { slidesPerView: 4, spaceBetween: 20 },
+          540: { slidesPerView: 2.2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
         },
       });
 
+      /* ── Dark / Light Toggle ─────────────────────── */
+      const html = document.documentElement;
+      const toggleBtn = document.getElementById("themeToggle");
+      const themeIcon = document.getElementById("themeIcon");
+
+      const saved = localStorage.getItem("it-theme");
+      if (saved === "dark") applyTheme("dark");
+
+      function applyTheme(theme) {
+        html.setAttribute("data-theme", theme);
+        localStorage.setItem("it-theme", theme);
+        themeIcon.className = theme === "dark" ? "fas fa-sun" : "fas fa-moon";
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        const current = html.getAttribute("data-theme");
+        applyTheme(current === "dark" ? "light" : "dark");
+      });
+
+      /* ── Modal ───────────────────────────────────── */
       const modal = document.getElementById("quoteModal");
       const modalContent = document.getElementById("modalContent");
-      const modalOverlay = document.getElementById("modalOverlay");
 
       function toggleModal() {
-        if (modal.classList.contains("hidden")) {
-          modal.classList.remove("hidden");
+        const isOpen = modal.classList.contains("open");
+        if (!isOpen) {
+          modal.classList.add("open");
           modalContent.classList.remove("animate-modal-out");
           modalContent.classList.add("animate-modal-in");
-          modalOverlay.style.opacity = "1";
           document.body.style.overflow = "hidden";
         } else {
           modalContent.classList.remove("animate-modal-in");
           modalContent.classList.add("animate-modal-out");
-          modalOverlay.style.opacity = "0";
           setTimeout(() => {
-            modal.classList.add("hidden");
-            document.body.style.overflow = "auto";
-          }, 300);
+            modal.classList.remove("open");
+            document.body.style.overflow = "";
+          }, 250);
         }
       }
 
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("open"))
+          toggleModal();
+      });
+
+      /* ── Quote Submit ────────────────────────────── */
       function handleQuoteSubmit(e) {
         e.preventDefault();
-        const btn = e.target.querySelector("button");
-        btn.innerText = "SENDING...";
+
+        const name = e.target.querySelector('input[type="text"]').value;
+        const email = e.target.querySelector('input[type="email"]').value;
+        const category = e.target.querySelector("select").value;
+        const message = e.target.querySelector("textarea").value;
+
+        const btn = document.getElementById("submitBtn");
+        btn.innerHTML =
+          '<i class="fas fa-spinner fa-spin" style="margin-right:8px;"></i>Preparing Email…';
         btn.disabled = true;
+
+        const subject = encodeURIComponent(
+          `Quote Request: ${category} - ${name}`,
+        );
+        const body = encodeURIComponent(
+          `Hello INFO TECH Team,\n\n` +
+            `I would like to request a quote for the following:\n\n` +
+            `Name: ${name}\n` +
+            `Client Email: ${email}\n` +
+            `Category: ${category}\n` +
+            `Message: ${message}\n\n` +
+            `Sent from INFO TECH Web Portal`,
+        );
+
+        const companyEmail = "lesterondoy456@gmail.com";
+
         setTimeout(() => {
-          alert("Success! Your request has been sent.");
-          btn.innerText = "Send Quotation Request";
-          btn.disabled = false;
-          e.target.reset();
-          toggleModal();
-        }, 1500);
+          window.location.href = `mailto:${companyEmail}?subject=${subject}&body=${body}`;
+          btn.innerHTML =
+            '<i class="fas fa-check" style="margin-right:8px;"></i>Redirected to Mail';
+
+          setTimeout(() => {
+            alert("Opening your email application to send the request!");
+            btn.innerHTML =
+              '<i class="fas fa-paper-plane" style="margin-right:8px;"></i>Send Quotation Request';
+            btn.disabled = false;
+            e.target.reset();
+            toggleModal();
+          }, 1000);
+        }, 800);
       }
     </script>
   </body>
